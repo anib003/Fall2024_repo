@@ -108,9 +108,29 @@ div{
   h1{
   	font-size: 0%;
   }
-
-
-  #div1{
-  	text-align: justify;
+  
+  #p1{
+  	width: 100%;
+  	border-left: 0px;
   }
+   
+   #p2{
+  	width: 100%;
+  	border-left: 0px;
+  }
+
+  #p3{
+  	width: 100%;
+  	border-left: 0px;
+  }
+
+  div{
+  	height: 120px;
+  	overflow:	hidden;
+  }
+
+  div:hover {
+  	
+  	overflow-y: scroll;
+}
  }
