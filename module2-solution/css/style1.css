@@ -106,14 +106,21 @@ div{
 
   }
   h1{
-  	font-size: 0%;
+  	visibility: hidden;
+  }
+
+  h1:after{
+  	visibility: visible;
+  	content: "Categories";
+  	float: left;
+  	font-size: 0.5em;
+  	padding-left: 40px;
   }
   
   #p1{
   	width: 100%;
   	border-left: 0px;
   }
-   
    #p2{
   	width: 100%;
   	border-left: 0px;
@@ -132,5 +139,7 @@ div{
   div:hover {
   	
   	overflow-y: scroll;
+	}
+	
+
 }
- }
