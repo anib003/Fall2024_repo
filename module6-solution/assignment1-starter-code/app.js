@@ -20,7 +20,7 @@ function LunchCheckController($scope){
 		else{
 			$scope.text="Please enter data first!";
 			$scope.textColor = 'red';
-			
+
 		}
 
 		 for (var i = 0; i < lunchArray.length; i++) {
@@ -38,7 +38,7 @@ function LunchCheckController($scope){
 		 }
 		 else if(count >3){
 		 	$scope.text="Too much!";
-		 	$scope.textColor = 'green';
+		 	$scope.textColor = 'red';
 		 }
 		 return count;
 	}
