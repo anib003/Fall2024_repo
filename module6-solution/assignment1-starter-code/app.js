@@ -38,7 +38,7 @@ function LunchCheckController($scope){
 		 }
 		 else if(count >3){
 		 	$scope.text="Too much!";
-		 	$scope.textColor = 'red';
+		 	$scope.textColor = 'green';
 		 }
 		 return count;
 	}
