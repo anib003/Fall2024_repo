@@ -16,11 +16,8 @@ function ToBuyController(ShoppingListCheckOffService, $scope){
 	ToBuy.removeItem = function(itemIndex){
 		ShoppingListCheckOffService.removeItem(itemIndex);
 		$scope.message1= ShoppingListCheckOffService.getEmptyMessage1();
+	
 	}
-
-
-
-
 	
 }
 
@@ -32,8 +29,6 @@ function AlreadyBoughtController(ShoppingListCheckOffService, $scope){
 	AlreadyBought.bought = ShoppingListCheckOffService.getBoughtItems();
 	$scope.message2= ShoppingListCheckOffService.getEmptyMessage2();
 
-
-	
 	
 }
 
@@ -112,18 +107,15 @@ function ShoppingListCheckOffService(){
 
   	service.getEmptyMessage2 = function(){
   		service.message2 = "Nothing bought yet!";
-  		if(bought.length > 0){
-  			service.message2 = "";
+  		if(bought.length>0){
+  			service.message2 = " ";
   			console.log(service.message2);
   		}
-  		// else{
-  		// 	service.message2= " ";
-  		// 	console.log(service.message2);
-  		// }
+  		
   		return service.message2;
   	}
 
- 
+   
 }
 
 })();
