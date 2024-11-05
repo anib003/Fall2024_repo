@@ -5,7 +5,7 @@
 angular.module('NarrowItDownApp', [])
 .controller('NarrowItDownController', NarrowItDownController)
 .service('MenuSearchService', MenuSearchService)
-.directive('foundItems', FoundItemsDirective);
+.directive('foundItemsDirective', FoundItemsDirective);
 
 
 
@@ -16,14 +16,21 @@ function FoundItemsDirective() {
       foundItems: '<',
       onRemove: '&'
     },
-    controller: FoundItemsDirectiveController,
-    controllerAs: 'list',
-    bindToController: true,
-    link: FoundItemsDirectiveLink
+    controller: ['$scope', function($scope) {
+      $scope.$watch('foundItems', function(newValue) {
+            if (newValue) {
+                console.log('foundItems changed:', newValue);
+            }
+        });
+
+    }],
+    controllerAs: 'menu',
+    bindToController: true
   };
 
   return ddo;
 }
+
 
 
 NarrowItDownController.$inject = ['MenuSearchService', '$scope'];
@@ -31,17 +38,29 @@ function NarrowItDownController(MenuSearchService, $scope){
 	var menu = this;
 	$scope.searchTerm = "";
 
-	$scope.found = [];
+	menu.foundItems =[];
 	menu.getMenuItems = function(searchTerm){
 		var promise = MenuSearchService.getMatchedMenuItems(searchTerm);
 		promise.then(function (response) {
-		menu.found = JSON.stringify(response, null, 2); 
-		console.log("Inside controller: foundItems: " + menu.found);
+		//$scope.foundItems = JSON.stringify(response, null, 2); 
+		menu.foundItems = response;
+		console.log("Inside controller: foundItems: " + menu.foundItems);
   	})
   	.catch(function (error) {
     	console.log("Something went terribly wrong.");
   	});
 	};
+
+
+	menu.ifEmptyList = function(){
+      	if(menu.foundItems.length === 0){
+      		return true;
+      	}
+      }
+
+	menu.removeItem = function (itemIndex) {
+    MenuSearchService.removeItem(itemIndex);
+    };
 
 		
 }
@@ -49,10 +68,11 @@ function NarrowItDownController(MenuSearchService, $scope){
 MenuSearchService.$inject = ['$http'];
 function MenuSearchService($http){
 	var service = this;
+	var foundItems =[];
 	
 
 	service.getMatchedMenuItems = function (searchTerm) {
-		var foundItems =[];
+		foundItems =[];
     	return $http({
      		method: "GET",
       		url: "https://coursera-jhu-default-rtdb.firebaseio.com/menu_items.json",})
@@ -62,8 +82,13 @@ function MenuSearchService($http){
     	    		for(var i=0; i<response.data[key].menu_items.length; i++){
     	    			var search = response.data[key].menu_items[i].name.toLowerCase();
 
-      					if (search.includes(searchTerm.toLowerCase())) {
-       		 				foundItems.push(response.data[key].menu_items[i]); 
+      					if (search.includes(searchTerm.toLowerCase()) && searchTerm!== "") {
+      						var item={
+								name:response.data[key].menu_items[i].name,
+								shortName:response.data[key].menu_items[i].short_name,
+								description:response.data[key].menu_items[i].description
+							};
+      						foundItems.push(item); 
       					}	
      			 	}
       			}
@@ -75,6 +100,10 @@ function MenuSearchService($http){
   	});
 
     	
+  	};
+
+  	service.removeItem = function (itemIndex) {
+    foundItems.splice(itemIndex, 1);
   	};
 
 
