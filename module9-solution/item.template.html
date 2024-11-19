@@ -1,9 +1,7 @@
 
 <ul>
-  <li ng-repeat="item in $ctrl.itemsforcategories " >
-    
-      {{item["name"]}} : 
-     {{ item["description"] }}</a>
+  <li ng-repeat="item in $ctrl.items" >
+      {{item["name"]}}  : ${{ item["price_large"] }}</a>
     
   </li>
 </ul>

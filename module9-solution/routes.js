@@ -36,9 +36,9 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
     templateUrl: 'item-detail.template.html',
     controller: "ItemDetailController as itemDetail",
     resolve: {
-      itemsforcategories: ['MenuDataService', function (MenuDataService) {
-        console.log("short_name: "+ itemId);
-        return MenuDataService.getItemsForCategory(itemId);
+      itemsforcategory: ['$stateParams','MenuDataService', function ($stateParams, MenuDataService) {
+        console.log("short_name: "+ $stateParams.itemId);
+        return MenuDataService.getItemsForCategory($stateParams.itemId);
       }]
     }
   });
