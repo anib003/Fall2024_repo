@@ -1,0 +1,16 @@
+<div class = "container" ng-controller="MyInfoController as myinfo">
+
+	<div ng-if="myinfo.checkIfRegistered">
+	<h4> Registered information </h4>
+	First Name: {{myinfo.users[0].firstname}} <br>
+	Last Name: {{myinfo.users[0].lastname}}<br>
+	Email: {{myinfo.users[0].email}}<br>
+	Phone: {{myinfo.users[0].phone}}<br>
+	Your favourite Menu: 
+	
+
+	</div>
+	<div ng-if="!myinfo.checkIfRegistered">
+		Not Signed Up Yet.<a ui-sref="public.signUp"> Sign up Now!</a>
+	</div>
+</div>
