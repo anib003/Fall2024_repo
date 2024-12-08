@@ -31,7 +31,9 @@ function MenuService($http, ApiPath) {
     lastname: userObj.lastname,
     email:userObj.email,
     phone:userObj.phone,
-    menunumber:userObj.menunumber
+    menunumber:userObj.menunumber,
+    part1: userObj.menunumber.slice(0,1),
+    part2: userObj.menunumber.slice(1)
     };
 
     service.users.push(user);
@@ -78,18 +80,14 @@ function MenuService($http, ApiPath) {
     return response1;
   };
 
-  service.getFavoriteMenu = function(){
-    return $http({
-        method: "GET",
-          url: service.urlDetails })
-        .then(function(response){
-         console.log("valid!!");
-        })
-        .catch(function(error){
-          console.log("error!!");
-        });
+  service.getURLDetails = function(){
+    return service.urlDetails;
+  }
 
-   
+  service.getFavoriteMenu = function(){
+    return $http.get(ApiPath + '/menu_items' + '.json').then(function (response) {
+      return response.data;
+    });
   };
 
   service.getUserDetails = function(){

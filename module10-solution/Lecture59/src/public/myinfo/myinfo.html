@@ -6,7 +6,19 @@
 	Last Name: {{myinfo.users[0].lastname}}<br>
 	Email: {{myinfo.users[0].email}}<br>
 	Phone: {{myinfo.users[0].phone}}<br>
-	Your favourite Menu: 
+	Your favourite Menu Number: {{myinfo.users[0].menunumber}} <br><br>
+	
+
+  <div class="container" >
+
+  <h5> {{ myinfo.getFavMenu[myinfo.users[0].part1].category.name}} Menu </h5>
+  <menu-item ng-if="$index == myinfo.users[0].part2" ng-repeat="menuItem in myinfo.getFavMenu[myinfo.users[0].part1].menu_items"
+             menu-item="menuItem" 
+             category-short-name="myinfo.getFavMenu[myinfo.users[0].part1].category.short_name">
+  </menu-item>
+
+
+</div>
 	
 
 	</div>
