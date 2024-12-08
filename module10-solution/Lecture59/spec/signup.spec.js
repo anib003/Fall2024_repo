@@ -19,15 +19,17 @@ describe('FavoriteItemTest', function () {
     menuservice.validateMenuNumber(validMenunumber).then(function(response) {
       expect(response.data).toEqual(['Lunch', 'Dessert']);
     });
+    done();
     $httpBackend.flush();
   });
 
 
   it('should return invalid menu item', function() {
-    $httpBackend.whenGET(ApiBasePath + '/menu_items.json').respond(null);
+    $httpBackend.whenGET(ApiBasePath + '/menu_items.json').respond([]);
     menuservice.validateMenuNumber(invalidMenunumber).then(function(response) {
       expect(response.data).not.toEqual(['Lunch', 'Dessert']);
     });
+    done();
     $httpBackend.flush();
   });
 
